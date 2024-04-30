@@ -1,6 +1,6 @@
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import * as web3 from "@solana/web3.js";
-import { LAMPORTS_PER_SOL } from "@solana/web3.js";
+import { LAMPORTS_PER_SOL, SystemProgram } from "@solana/web3.js";
 import { FC, useState } from "react";
 import styles from "../styles/Home.module.css";
 
@@ -9,7 +9,11 @@ import {
   TOKEN_PROGRAM_ID,
   ASSOCIATED_TOKEN_PROGRAM_ID,
   createAssociatedTokenAccountInstruction,
+  getMinimumBalanceForRentExemptAccount,
+  ACCOUNT_SIZE,
+  createInitializeAccountInstruction,
 } from "@solana/spl-token";
+import { log } from "console";
 
 export const CreateTokenAccountForm: FC = () => {
   const [txSig, setTxSig] = useState("");
@@ -27,8 +31,36 @@ export const CreateTokenAccountForm: FC = () => {
     if (!connection || !publicKey) {
       return;
     }
-    
+
     // BUILD AND SEND CREATE TOKEN ACCOUNT TRANSACTION HERE
+
+    const mint = new web3.PublicKey(event.target[0].value);
+    const owner = new web3.PublicKey(event.target[1].value);
+
+    const ata = await getAssociatedTokenAddress(mint, owner);
+
+    // const lamports = await getMinimumBalanceForRentExemptAccount(connection);
+    // const ix = SystemProgram.createAccount({
+    //   fromPubkey: publicKey,
+    //   lamports,
+    //   newAccountPubkey: ata,
+    //   programId: TOKEN_PROGRAM_ID,
+    //   space: ACCOUNT_SIZE,
+    // });
+
+    const ixCreateaccount = createAssociatedTokenAccountInstruction(
+      publicKey,
+      ata,
+      owner,
+      mint
+    );
+
+    const tx = new web3.Transaction();
+    // tx.add(ix)
+    tx.add(ixCreateaccount);
+
+    const sigx = await sendTransaction(tx, connection);
+    setTxSig(sigx);
   };
 
   return (
