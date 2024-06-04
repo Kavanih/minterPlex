@@ -1,0 +1,87 @@
+/* Styles globaux et r�glages de l'arri�re-plan */
+* {
+  scroll-behavior: smooth;
+  margin: 0; /* Retirer les marges par d�faut */
+  padding: 0; /* Retirer le padding par d�faut */
+  box-sizing: border-box; /* Inclure padding et bordures dans la largeur/hauteur des �l�ments */
+}
+
+html,
+body {
+  width: 100%; /* Assurez-vous que html et body occupent toute la largeur */
+  height: 100%; /* Assurez-vous que html et body occupent toute la hauteur */
+  overflow-x: hidden;
+  font-family: "Archivo Black";
+  background-image: url("images/imago.png"); /* Assurez-vous que le chemin est correct */
+  background-size: cover; /* Couvre toute la zone d'arri�re-plan */
+  background-position: center; /* Centre l'image sur l'arri�re-plan */
+  background-repeat: no-repeat; /* Ne pas r�p�ter l'image */
+  position: relative; /* Position relative pour le positionnement correct des enfants */
+}
+
+/* Ajout de couleur de secours pour les textes avec effet de gradient */
+.element-with-gradient {
+  background-image: linear-gradient(to right, rgb(150, 24, 182), violet);
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: #fff; /* Couleur de secours pour une meilleure visibilit� */
+}
+
+/* Assurer que tous les �l�ments sont visibles */
+.invisible-element {
+  opacity: 1; /* Rendre compl�tement opaque */
+  visibility: visible; /* Assurer que l'�l�ment est visible */
+}
+
+/* Ajustement du z-index pour les �l�ments de premier plan */
+.foreground-element {
+  z-index: 10; /* Plus �lev� pour rester au-dessus d'autres contenus */
+}
+/* Styles globaux et r�glages de l'arri�re-plan */
+/* ... vos autres styles ... */
+
+/* Styles pour le signe futuriste */
+.futuristic-sign {
+  border: 3px solid #00ffae;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px);
+  text-shadow: 0 0 10px cyan;
+}
+
+/* Ajustement du z-index pour les �l�ments de premier plan */
+/* ... vos autres styles ... */
+
+.glowing-text-outline {
+  text-shadow: 0 0 10px #fff, /* blanc */ 0 0 20px #fff,
+    /* blanc */ 0 0 30px #f0f, /* violet */ 0 0 40px #0ff,
+    /* cyan */ 0 0 50px #f0f, /* violet */ 0 0 60px #0ff,
+    /* cyan */ 0 0 70px #f0f; /* violet */
+
+  /* Partners Section */
+  #new-partners .partner-logo img {
+    /* Increasing the size of the logos */
+    width: auto; /* Keeping the aspect ratio */
+    max-width: 100%; /* Ensuring they are responsive */
+    height: auto; /* Keeping the aspect ratio */
+    margin: 0 auto; /* Centering logos */
+    transition: transform 0.3s ease;
+  }
+
+  #new-partners .partner-logo:hover img {
+    transform: scale(1.05); /* Logo grow effect on hover */
+  }
+
+  @media (max-width: 768px) {
+    #new-partners .grid {
+      grid-template-columns: repeat(
+        auto-fit,
+        minmax(120px, 1fr)
+      ); /* Adjusting the minimum size for better spacing */
+    }
+    #new-partners .partner-logo img {
+      max-height: 24px; /* Adjusting size on smaller screens */
+    }
+  }
+}
